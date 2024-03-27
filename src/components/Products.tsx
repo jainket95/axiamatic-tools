@@ -1,8 +1,8 @@
-import { Product, Products } from "../types";
+import { Product, Products as ProductsSchema } from "../types";
 import ProductCard from "./ProductCard";
 
 type ProductProps = {
-	products: Products;
+	products: ProductsSchema;
 	removeProduct: (id: string) => void;
 	productDisplayQuantity: number;
 	handleAddProductBox: () => void;
