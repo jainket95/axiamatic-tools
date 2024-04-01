@@ -11,8 +11,9 @@
     "client": "npm run dev --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server:start": "node ./server/server.js",
-    "client:start": "npm run dev --prefix client",
-    "start": "concurrently \"npm run server:start\" \"npm run client:start\""
+    "client:start": "npm run preview --prefix client",
+    "client:build": "npm run build --prefix client",
+    "start": "concurrently \"npm run server:start\" \"npm run client:build\" \"npm run client:start\""
   },
   "keywords": [],
   "author": "",
