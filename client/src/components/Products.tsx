@@ -1,32 +1,21 @@
-import { Product, Products as ProductsSchema } from "../types";
+import { Product, SelectedProducts } from "../types";
 import ProductCard from "./ProductCard";
 
 type ProductProps = {
-	products: ProductsSchema;
-	removeProduct: (id: string) => void;
-	productDisplayQuantity: number;
+	products: SelectedProducts;
+	removeProduct: (id: string, type: "dropdown" | "box") => void;
 	handleAddProductBox: () => void;
 };
 
 const Products = ({
 	products,
 	removeProduct,
-	productDisplayQuantity,
 	handleAddProductBox,
 }: ProductProps) => {
-	const emptyProductCard = Array.from(
-		{
-			length: productDisplayQuantity - products.length,
-		},
-		(_, i) => i + 1
-	).map((id) => ({ type: "add", id: String(id) }));
-
-	const newProducts = [...products, ...emptyProductCard];
-
 	return (
 		<div className="flex lg:flex-col items-center justify-evenly md:w-full md:flex-col-reverse sm:w-full sm:flex-col-reverse">
 			<div className="flex flex-wrap items-center justify-evenly md:gap-32 sm:gap-14">
-				{newProducts.map((product: Product | { type: string; id: string }) => (
+				{products.map((product: Product | { type: string; id: string }) => (
 					<ProductCard
 						key={product.id}
 						product={product}
@@ -36,7 +25,7 @@ const Products = ({
 				))}
 			</div>
 			<p
-				className={`font-normal text-lg text-gray-400 mb-10 ${
+				className={`font-normal text-lg text-gray-400 m-10 ${
 					products.length ? "block" : "hidden"
 				}`}>
 				{products.length} products added

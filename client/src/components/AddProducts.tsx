@@ -1,26 +1,28 @@
 import { RefObject, useState } from "react";
-import { Products } from "../types";
+import { Products, SelectedProduct, SelectedProducts } from "../types";
 import Input from "./Input";
 import Dropdown from "./Dropdown";
+import { numberOfProducts as productDisplayQuantity } from "../config";
 
 type AddProductsProps = {
 	products: Products;
-	handleSelect: (id: string) => void;
+	selectedProducts: SelectedProducts;
+	handleSelect: (id: string, type: "dropdown" | "box") => void;
 	handleSearch: (searchText: string) => void;
-	productDisplayQuantity: number;
 	inputRef: RefObject<HTMLInputElement>;
 };
 
 const AddProducts = ({
 	products,
+	selectedProducts,
 	handleSelect,
 	handleSearch,
-	productDisplayQuantity,
 	inputRef,
 }: AddProductsProps) => {
 	const productSelectionLimit =
-		products.filter((products) => products.isSelected).length ===
-		productDisplayQuantity;
+		selectedProducts.filter((p: SelectedProduct) => "name" in p && p.name)
+			.length === productDisplayQuantity;
+
 	const [search, setSearch] = useState("");
 	const [showDropdown, setShowDropdown] = useState(false);
 
@@ -41,7 +43,7 @@ const AddProducts = ({
 	};
 
 	const handleProductSelect = (id: string) => {
-		handleSelect(id);
+		handleSelect(id, "dropdown");
 		setSearch("");
 		setShowDropdown(false);
 	};
@@ -49,6 +51,34 @@ const AddProducts = ({
 	const clearSearchInputDropdown = () => {
 		setSearch("");
 		setShowDropdown(false);
+	};
+
+	const handleSubmitButton = async () => {
+		const postDataProducts: (SelectedProduct | { id: string; name: string })[] =
+			selectedProducts.map((item) => {
+				if ("name" in item && item.name) {
+					return {
+						id: item.id,
+						name: item.name,
+					};
+				}
+				return item;
+			});
+
+		const response = await fetch("http://localhost:8080/setProducts", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				products: JSON.stringify(postDataProducts),
+				id: 1,
+			}),
+		});
+
+		if (response.ok) {
+			alert("Onboarding products saved successfully.");
+		}
 	};
 
 	return (
@@ -78,10 +108,11 @@ const AddProducts = ({
 			/>
 
 			<button
-				disabled={productSelectionLimit || search.length === 0}
-				className={`w-full h-[3rem] capitalize font-medium text-lg rounded text-white bg-blue-500 ${
-					productSelectionLimit ? "bg-blue-400" : "bg-blue-500"
-				}`}>
+				disabled={!productSelectionLimit}
+				className={`w-full h-[3rem] capitalize font-medium text-lg rounded text-white ${
+					!productSelectionLimit ? "bg-blue-300" : "bg-blue-500"
+				}`}
+				onClick={handleSubmitButton}>
 				next
 			</button>
 		</div>

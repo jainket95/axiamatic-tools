@@ -1,4 +1,6 @@
-export default [
+import { EmptyProductBoxes, Products } from "./types";
+
+export const products = [
 	{ id: "0600b34b", name: "Slack", isSelected: false },
 	{ id: "e483aa60", name: "Microsoft Teams", isSelected: false },
 	{ id: "7ae74157", name: "Zoom", isSelected: false },
@@ -35,3 +37,20 @@ export default [
 	{ id: "c59de3d7", name: "IntelliJ IDEA", isSelected: false },
 	{ id: "cedc43f2", name: "Postman", isSelected: false },
 ];
+
+export const numberOfProducts: number = 4;
+
+export const generateRandom = (length: number): string => {
+	return Math.random()
+		.toString()
+		.slice(2, length + 2);
+};
+
+export const emptyProductCard = (products: Products): EmptyProductBoxes => {
+	return Array.from(
+		{
+			length: numberOfProducts - products.length,
+		},
+		(_, i) => i + 1
+	).map(() => ({ type: "add", id: String(generateRandom(8)) }));
+};

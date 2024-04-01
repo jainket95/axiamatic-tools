@@ -1,32 +1,24 @@
 {
   "name": "axiamatic",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "client:install": "npm install --prefix client",
+    "server:install": "npm install --prefix server",
+    "install:run": "npm run client:install && npm run server:install && npm install && npm run dev",
+    "server": "nodemon ./server/server.js",
+    "client": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server:start": "node ./server/server.js",
+    "client:start": "npm run dev --prefix client",
+    "start": "concurrently \"npm run server:start\" \"npm run client:start\""
   },
-  "dependencies": {
-    "@heroicons/react": "^2.1.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "autoprefixer": "^10.4.19",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.6",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0"
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.0"
   }
 }

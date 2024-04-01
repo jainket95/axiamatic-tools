@@ -1,4 +1,4 @@
-import { CheckIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import { Product, Products } from "../types";
 
 type DropdownProps = {
@@ -20,9 +20,12 @@ const DropdownItem = ({ product, handleProductSelect }: DropdownItemsProps) => {
 				product.isSelected && "bg-blue-500 text-white"
 			}`}
 			onClick={handleProductSelect.bind(null, product.id)}>
+			<div className="w-6 mr-3">
+				<PhotoIcon />
+			</div>
 			<p className="font-normal text-md ">{product.name}</p>
 			{product.isSelected && (
-				<div className="absolute top-[0.7rem] right-4 w-5 text-grey">
+				<div className="absolute top-[0.7rem] right-4 w-6">
 					<CheckIcon />
 				</div>
 			)}
@@ -35,23 +38,21 @@ const Dropdown = ({
 	products,
 	handleProductSelect,
 }: DropdownProps) => {
-	if (showDropdown) {
-		return (
-			<div className="relative">
-				<div className="absolute -top-1 left-0 w-full border rounded-md border-gray-300 flex flex-col items-start bg-white">
-					{products.map((product) => (
-						<DropdownItem
-							key={product.id}
-							product={product}
-							handleProductSelect={handleProductSelect}
-						/>
-					))}
-				</div>
+	return (
+		<div
+			id="dropdown"
+			className={`relative ${showDropdown ? "block" : "hidden"}`}>
+			<div className="absolute -top-1 left-0 w-full border rounded-md border-gray-300 flex flex-col items-start bg-white">
+				{products.map((product) => (
+					<DropdownItem
+						key={product.id}
+						product={product}
+						handleProductSelect={handleProductSelect}
+					/>
+				))}
 			</div>
-		);
-	} else {
-		return null;
-	}
+		</div>
+	);
 };
 
 export default Dropdown;
