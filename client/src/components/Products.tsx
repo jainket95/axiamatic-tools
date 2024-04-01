@@ -14,7 +14,7 @@ const Products = ({
 }: ProductProps) => {
 	return (
 		<div className="flex lg:flex-col items-center justify-evenly md:w-full md:flex-col-reverse sm:w-full sm:flex-col-reverse">
-			<div className="flex flex-wrap items-center justify-evenly md:gap-32 sm:gap-14">
+			<div className="flex flex-wrap items-center justify-evenly md:gap-28 sm:gap-14 lg:px-0 md:px-24">
 				{products.map((product: Product | { type: string; id: string }) => (
 					<ProductCard
 						key={product.id}
@@ -28,7 +28,7 @@ const Products = ({
 				className={`font-normal text-lg text-gray-400 m-10 ${
 					products.length ? "block" : "hidden"
 				}`}>
-				{products.length} products added
+				{products.filter((p) => "name" in p && p.name).length} products added
 			</p>
 		</div>
 	);

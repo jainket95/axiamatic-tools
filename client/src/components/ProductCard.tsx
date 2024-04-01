@@ -27,7 +27,7 @@ const ProductCard = ({
 			<div
 				className="lg:w-56 lg:h-56 sm:w-48 sm:h-48 border border-gray-400 flex flex-col items-center
 			rounded-md justify-center p-6 cursor-pointer">
-				<div className="w-28 h-w-28 text-gray-400 mb-3">
+				<div className="lg:w-28 lg:h-28 w-20 h-20 text-gray-400 mb-3">
 					<PhotoIcon />
 				</div>
 				<p className="text-[1.4rem] font-normal text-center text-gray-600 mb-3">

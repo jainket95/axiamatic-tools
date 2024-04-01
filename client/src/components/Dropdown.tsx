@@ -16,7 +16,7 @@ const DropdownItem = ({ product, handleProductSelect }: DropdownItemsProps) => {
 	return (
 		<div
 			key={product.id}
-			className={`relative w-full h-12 mb-1 rounded-md text-black flex items-center pl-3 cursor-pointer ${
+			className={`relative w-full min-h-12 mb-1 rounded-md text-black flex items-center pl-3 cursor-pointer ${
 				product.isSelected && "bg-blue-500 text-white"
 			}`}
 			onClick={handleProductSelect.bind(null, product.id)}>
@@ -42,7 +42,7 @@ const Dropdown = ({
 		<div
 			id="dropdown"
 			className={`relative ${showDropdown ? "block" : "hidden"}`}>
-			<div className="absolute -top-1 left-0 w-full border rounded-md border-gray-300 flex flex-col items-start bg-white">
+			<div className="absolute -top-1 left-0 w-full border rounded-md border-gray-300 flex flex-col items-start bg-white overflow-y-auto max-h-80">
 				{products.map((product) => (
 					<DropdownItem
 						key={product.id}

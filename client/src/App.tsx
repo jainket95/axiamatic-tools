@@ -110,19 +110,19 @@ function App() {
 
 	return (
 		<div
-			className="container mx-auto w-[100vw] h-[100vh] overflow-hidden"
+			className="container mx-auto w-[100vw] h-[100vh] overflow-auto lg:overflow-hidden"
 			onClick={handleDropDownClose}>
 			<Header />
 
-			<div className="flex lg:flex-row sm:flex-col-reverse items-center justify-center w-full h-full sm:pt-[12.5rem] md:pt-[12.5rem] md:items-start">
-				<div className="w-full sm:pb-14 md:pb-14 lg:w-2/3 lg:mr-10 lg:pb-0">
+			<div className="flex lg:flex-row sm:flex-col-reverse lg:items-center lg:justify-center w-full h-full sm:pt-[12.5rem] lg:pt-0  md:pt-[12.5rem] md:items-start">
+				<div className="w-full sm:pb-14 md:pb-14 lg:w-3/5 lg:mr-10 lg:pb-0">
 					<Products
 						products={selectedProducts}
 						removeProduct={handleProductToggle}
 						handleAddProductBox={handleAddProductBox}
 					/>
 				</div>
-				<div className="w-full sm:mb-14 sm:mt-[18rem] md:mb-14 lg:mb-14 md:mt-[24rem] lg:mt-0 lg:w-1/3 md:w-2/3 lg:flex lg:items-center lg:mr-10">
+				<div className="w-full sm:mb-14 sm:mt-[18rem] md:mb-2 lg:mb-2 md:mt-[24rem] lg:mt-0 lg:w-2/5 md:w-4/5 lg:flex lg:items-center lg:mr-10">
 					<AddProducts
 						products={searchProducts}
 						selectedProducts={selectedProducts}
